@@ -84,5 +84,8 @@ class BaseGridworld(gym.Env):
             print("A: " + str(last_action) + " S: " + str(step))
 
         self.step = _step
+        self._step = _step
         self.reset = _reset
+        self._reset = _reset
         self.render = _render
+        self._seed = lambda x: x
