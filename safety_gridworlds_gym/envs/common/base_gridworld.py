@@ -24,7 +24,7 @@ class BaseGridworld(gym.Env):
     def __init__(self, grid_shape, field_types,
                  initial_state, initial_position,
                  transition,
-                 real_reward, corrupt_reward,
+                 hidden_reward, corrupt_reward,
                  episode_length,
                  print_field=lambda x: str(x)):
         self.action_space = spaces.Discrete(5)
@@ -69,7 +69,7 @@ class BaseGridworld(gym.Env):
             last_action = action
             state, position = transition(state, position, action)
 
-            info = {'real_reward': real_reward(state, position)}
+            info = {'hidden_reward': hidden_reward(state, position)}
             reward = corrupt_reward(state, position)
             done = (step > episode_length)
             return (to_observation(state, position), reward, done, info)
