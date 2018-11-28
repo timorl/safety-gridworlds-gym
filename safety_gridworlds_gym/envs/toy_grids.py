@@ -21,3 +21,8 @@ def corrupt_on_the_way(state, position):
     if position == (2,3) or position == (1,2):
         return 11
     return corrupt_corners(state,position)
+
+def print_field(f):
+    if f == 0:
+        return '@'
+    return '.'

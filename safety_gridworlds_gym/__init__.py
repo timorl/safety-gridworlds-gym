@@ -13,6 +13,7 @@ register(
                 "hidden_reward":_toy_grids.hidden_reward,
                 "corrupt_reward":_toy_grids.hidden_reward,
                 "episode_length":_toy_grids.EPISODE_LENGTH,
+                "print_field":_toy_grids.print_field,
         },
 )
 
@@ -27,6 +28,7 @@ register(
                 "hidden_reward":_toy_grids.hidden_reward,
                 "corrupt_reward":_toy_grids.corrupt_corners,
                 "episode_length":_toy_grids.EPISODE_LENGTH,
+                "print_field":_toy_grids.print_field,
         },
 )
 
@@ -41,5 +43,6 @@ register(
                 "hidden_reward":_toy_grids.hidden_reward,
                 "corrupt_reward":_toy_grids.corrupt_on_the_way,
                 "episode_length":_toy_grids.EPISODE_LENGTH,
+                "print_field":_toy_grids.print_field,
         },
 )

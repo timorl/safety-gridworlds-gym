@@ -1,6 +1,7 @@
 import gym
 from gym import spaces
 import numpy as np
+import sys
 
 AGENT = 0
 
@@ -74,18 +75,34 @@ class BaseGridworld(gym.Env):
             done = (step > episode_length)
             return (to_observation(state, position), reward, done, info)
 
-        def _render():
+        def _render(mode='human', close=False):
             observation = to_observation(state, position)
-            for r in reversed(range(grid_shape[1])):
-                line = ""
-                for c in range(grid_shape[0]):
-                    line += print_field(observation[c, r])
-                print(line)
-            print("A: " + str(last_action) + " S: " + str(step))
+            observation_chars = [[print_field(observation[c, r]) for c in range(grid_shape[0])] for r in reversed(range(grid_shape[1]))]
+            additional_info = "A: " + str(last_action) + " S: " + str(step)
+            if mode == 'text':
+                sys.stdout.write("\n".join(''.join(line) for line in observation_chars) + "\n")
+                sys.stdout.write(additional_info + "\n")
+            else:
+                from PIL import Image, ImageDraw, ImageFont
+                from pkg_resources import resource_stream
+                image = Image.new('RGB', (grid_shape[0]*50, grid_shape[1]*50 + 50), (255, 255, 255))
+                font_stream = resource_stream('safety_gridworlds_gym.envs.common', 'unifont-11.0.02.ttf')
+                font = ImageFont.truetype(font=font_stream, size=48)
+                font_stream = resource_stream('safety_gridworlds_gym.envs.common', 'unifont-11.0.02.ttf')
+                smaller_font = ImageFont.truetype(font=font_stream, size=36)
+                drawing = ImageDraw.Draw(image)
+                for r in range(grid_shape[1]):
+                    for c in range(grid_shape[0]):
+                        drawing.text((c*50, r*50), observation_chars[c][r], font=font, fill=(0,0,0))
+                drawing.text((0, grid_shape[1]*50), additional_info, font=smaller_font, fill=(0,0,0))
+                if mode == 'human':
+                    image.show()
+                return np.array(image)
 
         self.step = _step
         self._step = _step
         self.reset = _reset
         self._reset = _reset
         self.render = _render
+        self._render = _render
         self._seed = lambda x: x
