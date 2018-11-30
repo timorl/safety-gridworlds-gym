@@ -96,7 +96,11 @@ class BaseGridworld(gym.Env):
                         drawing.text((c*50, r*50), observation_chars[c][r], font=font, fill=(0,0,0))
                 drawing.text((0, grid_shape[1]*50), additional_info, font=smaller_font, fill=(0,0,0))
                 if mode == 'human':
-                    image.show()
+                    import matplotlib.pyplot as plt
+                    plt.axis("off")
+                    plt.imshow(image)
+                    plt.pause(.1)
+                    plt.clf()
                 return np.array(image)
 
         self.step = _step
