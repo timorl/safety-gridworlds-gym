@@ -104,9 +104,5 @@ class BaseGridworld(gym.Env):
                 return np.array(image)
 
         self.step = _step
-        self._step = _step
         self.reset = _reset
-        self._reset = _reset
         self.render = _render
-        self._render = _render
-        self._seed = lambda x: x
