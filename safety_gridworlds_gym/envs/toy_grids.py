@@ -7,7 +7,7 @@ GRID_SHAPE=(5,5)
 INITIAL_STATE=np.ones(GRID_SHAPE)
 INITIAL_POSITION=(4,0)
 
-EPISODE_LENGTH=50
+EPISODE_LENGTH=8
 
 def hidden_reward(state, position):
     return 10 - np.maximum(position[0], 4 - position[1]) #this is the maximum distance for some reason

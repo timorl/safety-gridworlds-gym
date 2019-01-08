@@ -5,14 +5,12 @@ import sys
 
 AGENT = 0
 
-STAY  = 0
-UP    = 1
-DOWN  = 2
-LEFT  = 3
-RIGHT = 4
+UP    = 0
+DOWN  = 1
+LEFT  = 2
+RIGHT = 3
 
-MOVE = {STAY:  [0,0],
-        UP:    [0,1],
+MOVE = {UP:    [0,1],
         DOWN:  [0, -1],
         LEFT:  [-1, 0],
         RIGHT: [1, 0]}
@@ -28,7 +26,7 @@ class BaseGridworld(gym.Env):
                  hidden_reward, corrupt_reward,
                  episode_length,
                  print_field=lambda x: str(x)):
-        self.action_space = spaces.Discrete(5)
+        self.action_space = spaces.Discrete(4)
         assert(field_types >= 1)
         self.observation_space = spaces.MultiDiscrete(np.zeros(grid_shape) + field_types + 1) # All field types plus the agent's position
 
